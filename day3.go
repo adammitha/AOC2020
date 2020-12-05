@@ -6,20 +6,25 @@ import (
 	"os"
 )
 
-func countTrees(trees [][]bool) int {
-	var count int
-	var posX, posY int
-	width := len(trees[0])
+func countTrees(trees [][]bool, slopes [][2]int) []int {
+	var counts = make([]int, len(slopes))
 
-	for posY < len(trees) {
-		if trees[posY][posX%width] {
-			count++
+	for i := 0; i < len(slopes); i++ {
+		slope := slopes[i]
+		var posX, posY int
+		width := len(trees[0])
+
+		for posY < len(trees) {
+			if trees[posY][posX%width] {
+				counts[i]++
+			}
+			posX += slope[0]
+			posY += slope[1]
 		}
-		posX += 3
-		posY++
+
 	}
 
-	return count
+	return counts
 }
 
 func readMap(path string) [][]bool {
