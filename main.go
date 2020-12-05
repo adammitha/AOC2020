@@ -6,5 +6,5 @@ import (
 
 func main() {
 	passwords := readPasswords("inputs/passwords.txt")
-	fmt.Println(countValidPasswords(passwords))
+	fmt.Println(countValidPasswords2(passwords))
 }
