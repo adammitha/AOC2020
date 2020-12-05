@@ -7,7 +7,7 @@ import (
 	"strconv"
 )
 
-func findExpenses(expenses []int) (int, int) {
+func findTwoExpenses2020(expenses []int) (int, int) {
 	var expense1, expense2 int
 	var i, j int
 	for ; i < len(expenses)-1; i++ {
@@ -20,6 +20,25 @@ func findExpenses(expenses []int) (int, int) {
 		}
 	}
 	return expense1, expense2
+}
+
+func findThreeExpenses2020(expenses []int) (int, int, int) {
+	var expense1, expense2, expense3 int
+
+	var i, j, k int
+	for ; i < len(expenses)-2; i++ {
+		j = i + 1
+		for ; j < len(expenses)-1; j++ {
+			k = j + 1
+			for ; k < len(expenses); k++ {
+				if expenses[i]+expenses[j]+expenses[k] == 2020 {
+					expense1, expense2, expense3 = expenses[i], expenses[j], expenses[k]
+				}
+			}
+		}
+	}
+
+	return expense1, expense2, expense3
 }
 
 func readExpenses(path string) []int {

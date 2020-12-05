@@ -6,5 +6,5 @@ import (
 
 func main() {
 	expenses := readExpenses("inputs/expenses.txt")
-	fmt.Println(findExpenses(expenses))
+	fmt.Println(findThreeExpenses2020(expenses))
 }
