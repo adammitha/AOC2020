@@ -5,6 +5,6 @@ import (
 )
 
 func main() {
-	passwords := readPasswords("inputs/passwords.txt")
-	fmt.Println(countValidPasswords2(passwords))
+	trees := readMap("inputs/trees.txt")
+	fmt.Println(countTrees(trees))
 }
