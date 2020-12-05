@@ -5,6 +5,6 @@ import (
 )
 
 func main() {
-	expenses := readExpenses("inputs/expenses.txt")
-	fmt.Println(findThreeExpenses2020(expenses))
+	passwords := readPasswords("inputs/passwords.txt")
+	fmt.Println(countValidPasswords(passwords))
 }
