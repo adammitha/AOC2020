@@ -5,6 +5,5 @@ import (
 )
 
 func main() {
-	passports := readPassports("inputs/passports.txt")
-	fmt.Println(countValidPassports(passports))
+	fmt.Println(findSeat("BFFFBBFRRR"))
 }
