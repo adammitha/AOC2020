@@ -4,6 +4,8 @@ import (
 	"bufio"
 	"log"
 	"os"
+	"regexp"
+	"strconv"
 	"strings"
 )
 
@@ -11,7 +13,7 @@ func countValidPassports(passports []map[string]string) int {
 	var count int
 
 	for _, passport := range passports {
-		if checkKeys(passport) {
+		if checkFields(passport) {
 			count++
 		}
 	}
@@ -19,7 +21,7 @@ func countValidPassports(passports []map[string]string) int {
 	return count
 }
 
-func checkKeys(passport map[string]string) bool {
+func checkFields(passport map[string]string) bool {
 	validKeys := []string{
 		"byr",
 		"iyr",
@@ -30,15 +32,65 @@ func checkKeys(passport map[string]string) bool {
 		"pid",
 	}
 
-	allOK := true
-
 	for _, key := range validKeys {
 		if _, ok := passport[key]; !ok {
-			allOK = false
+			return false
+		}
+		if !validateField(key, passport[key]) {
+			return false
 		}
 	}
 
-	return allOK
+	return true
+}
+
+func validateField(key string, value string) bool {
+	switch key {
+	case "byr":
+		year, err := strconv.Atoi(value)
+		if err != nil {
+			log.Fatal(err)
+		}
+		if year >= 1920 && year <= 2002 {
+			return true
+		}
+	case "iyr":
+		year, err := strconv.Atoi(value)
+		if err != nil {
+			log.Fatal(err)
+		}
+		if year >= 2010 && year <= 2020 {
+			return true
+		}
+	case "eyr":
+		year, err := strconv.Atoi(value)
+		if err != nil {
+			log.Fatal(err)
+		}
+		if year >= 2020 && year <= 2030 {
+			return true
+		}
+	case "hgt":
+		height, err := strconv.Atoi(string(regexp.MustCompile("[0-9]*").Find([]byte(value))))
+		if err != nil {
+			log.Fatal(err)
+		}
+		units := string(regexp.MustCompile("cm|in").Find([]byte(value)))
+
+		if units == "cm" && height >= 150 && height <= 193 {
+			return true
+		} else if units == "in" && height >= 59 && height <= 76 {
+			return true
+		}
+	case "hcl":
+		return regexp.MustCompile("#[0-9a-f]{6}").Match([]byte(value))
+	case "ecl":
+		return regexp.MustCompile("amb|blu|brn|gry|grn|hzl|oth").Match([]byte(value))
+	case "pid":
+		return regexp.MustCompile("[0-9]{9}").Match([]byte(value))
+
+	}
+	return false
 }
 
 func readPassports(path string) []map[string]string {
