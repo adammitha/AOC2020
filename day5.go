@@ -4,7 +4,29 @@ import (
 	"bufio"
 	"log"
 	"os"
+	"sort"
 )
+
+func findSeatID(seats []string) int {
+	var seatIDs []int
+
+	for _, seat := range seats {
+		seatIDs = append(seatIDs, seatID(seat))
+	}
+
+	sort.Slice(seatIDs, func(i, j int) bool { return seatIDs[i] < seatIDs[j] })
+
+	var mySeatID int
+
+	for i := 0; i < len(seatIDs)-1; i++ {
+		j := i + 1
+		if (seatIDs[j] - seatIDs[i]) > 1 {
+			mySeatID = seatIDs[j] - 1
+		}
+	}
+
+	return mySeatID
+}
 
 func findHighestSeatID(seats []string) int {
 	var maxID int

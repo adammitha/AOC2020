@@ -6,5 +6,5 @@ import (
 
 func main() {
 	boardingPasses := readBoardingPasses("inputs/boarding_passes.txt")
-	fmt.Println(findHighestSeatID(boardingPasses))
+	fmt.Println(findSeatID(boardingPasses))
 }
