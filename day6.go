@@ -51,7 +51,7 @@ func countCommonLetters(forms []string) int {
 }
 
 func sumAnyYes(groups []BoardingGroup) int {
-	var counts []int
+	var count int
 
 	for _, group := range groups {
 		var groupString string
@@ -65,11 +65,11 @@ func sumAnyYes(groups []BoardingGroup) int {
 			chars[string(char)] = true
 		}
 
-		counts = append(counts, len(chars))
+		count += len(chars)
 
 	}
 
-	return sum(counts)
+	return count
 }
 
 func readCustomsForms(path string) []BoardingGroup {
@@ -96,14 +96,4 @@ func readCustomsForms(path string) []BoardingGroup {
 
 	return groups
 
-}
-
-func sum(nums []int) int {
-	var sum int
-
-	for _, num := range nums {
-		sum += num
-	}
-
-	return sum
 }
