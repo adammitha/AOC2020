@@ -5,5 +5,6 @@ import (
 )
 
 func main() {
-	fmt.Println(findSeat("BFFFBBFRRR"))
+	boardingGroups := readCustomsForms("inputs/customs_forms.txt")
+	fmt.Println(sumAllYes(boardingGroups))
 }
