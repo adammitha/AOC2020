@@ -5,46 +5,29 @@ import (
 	"log"
 	"os"
 	"strings"
+
+	"github.com/golang-collections/collections/set"
 )
 
-//BoardingGroup represents questions answer 'yes' for every member of a boarding group
+//BoardingGroup represents questions answered 'yes' for every member of a boarding group
 type BoardingGroup []string
 
 func sumAllYes(groups []BoardingGroup) int {
 	var count int
 
 	for _, group := range groups {
-		count += countCommonLetters(group)
-	}
-
-	return count
-}
-
-func countCommonLetters(forms []string) int {
-	var count int
-
-	first := forms[0]
-
-	firstMap := make(map[string]bool)
-
-	for _, char := range first {
-		if len(forms[1:]) > 0 {
-			for _, form := range forms[1:] {
-				if strings.Contains(form, string(char)) {
-					firstMap[string(char)] = true
-				} else {
-					firstMap[string(char)] = false
-				}
+		answers := set.New()
+		for _, char := range strings.Split(group[0], "") {
+			answers.Insert(char)
+		}
+		for _, person := range group[1:] {
+			temp := set.New()
+			for _, char := range strings.Split(person, "") {
+				temp.Insert(char)
 			}
-		} else {
-			firstMap[string(char)] = true
+			answers = answers.Intersection(temp)
 		}
-	}
-
-	for _, v := range firstMap {
-		if v {
-			count++
-		}
+		count += answers.Len()
 	}
 
 	return count
