@@ -5,6 +5,6 @@ import (
 )
 
 func main() {
-	boardingPasses := readBoardingPasses("inputs/boarding_passes.txt")
-	fmt.Println(findSeatID(boardingPasses))
+	boardingGroups := readCustomsForms("inputs/customs_forms.txt")
+	fmt.Println(boardingGroups)
 }
