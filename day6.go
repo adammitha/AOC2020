@@ -4,10 +4,51 @@ import (
 	"bufio"
 	"log"
 	"os"
+	"strings"
 )
 
 //BoardingGroup represents questions answer 'yes' for every member of a boarding group
 type BoardingGroup []string
+
+func sumAllYes(groups []BoardingGroup) int {
+	var count int
+
+	for _, group := range groups {
+		count += countCommonLetters(group)
+	}
+
+	return count
+}
+
+func countCommonLetters(forms []string) int {
+	var count int
+
+	first := forms[0]
+
+	firstMap := make(map[string]bool)
+
+	for _, char := range first {
+		if len(forms[1:]) > 0 {
+			for _, form := range forms[1:] {
+				if strings.Contains(form, string(char)) {
+					firstMap[string(char)] = true
+				} else {
+					firstMap[string(char)] = false
+				}
+			}
+		} else {
+			firstMap[string(char)] = true
+		}
+	}
+
+	for _, v := range firstMap {
+		if v {
+			count++
+		}
+	}
+
+	return count
+}
 
 func sumAnyYes(groups []BoardingGroup) int {
 	var counts []int

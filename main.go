@@ -6,5 +6,5 @@ import (
 
 func main() {
 	boardingGroups := readCustomsForms("inputs/customs_forms.txt")
-	fmt.Println(sumAnyYes(boardingGroups))
+	fmt.Println(sumAllYes(boardingGroups))
 }
